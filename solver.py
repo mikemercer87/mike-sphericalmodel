@@ -33,6 +33,14 @@ class Diffusion():
     def solver(self):
     # This will solve the diffusion equation.
         for i in range(1,self.T_max):
+            self.boundary_conditions()
+            for k in range(0,self.R):
+                self.C_array[i+1,k] = self.C_array[i,k] + self.deltat * self.D * (1 / self.r_array[k]) * \
+                                      (self.C_array[i,k+1] - self.C_array[i,k-1]) / self.deltar) + \
+                                      (self.C_array[i,k+1] - 2 * self.C_array[i,k] + self.C_array[i,k - 1]) / (self.deltar) ** 2 
+                                                    
 
 if __name__ == '__main__':
+    class_init = Diffusion()
+    solution  = class_init.solver()
     
